@@ -1,0 +1,1113 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AutoPassion — L'univers de l'automobile</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@300;400;500;600&family=Barlow+Condensed:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --red: #E24B4A;
+    --red-dark: #A32D2D;
+    --red-light: #FCEBEB;
+    --black: #0a0a0a;
+    --dark: #111111;
+    --dark2: #1a1a1a;
+    --dark3: #242424;
+    --gray: #888780;
+    --gray-light: #D3D1C7;
+    --white: #f5f5f0;
+    --accent: #EF9F27;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'Barlow', sans-serif;
+    background: var(--black);
+    color: var(--white);
+    overflow-x: hidden;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1rem 3rem;
+    background: rgba(10,10,10,0.95);
+    border-bottom: 1px solid rgba(226,75,74,0.3);
+    backdrop-filter: blur(10px);
+  }
+  .logo {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2rem;
+    letter-spacing: 4px;
+    color: var(--white);
+  }
+  .logo span { color: var(--red); }
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a {
+    color: var(--gray-light);
+    text-decoration: none;
+    font-size: 0.85rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    font-weight: 500;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--red); }
+  .nav-cta {
+    background: var(--red);
+    color: white !important;
+    padding: 0.5rem 1.5rem;
+    border-radius: 2px;
+  }
+  .nav-cta:hover { background: var(--red-dark); color: white !important; }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: flex; align-items: center;
+    position: relative;
+    overflow: hidden;
+    padding: 0 3rem;
+    padding-top: 80px;
+  }
+  .hero-bg {
+    position: absolute; inset: 0;
+    background: linear-gradient(135deg, #0a0a0a 0%, #1a0505 50%, #0a0a0a 100%);
+  }
+  .hero-grid {
+    position: absolute; inset: 0;
+    background-image:
+      linear-gradient(rgba(226,75,74,0.05) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(226,75,74,0.05) 1px, transparent 1px);
+    background-size: 60px 60px;
+  }
+  .hero-content { position: relative; z-index: 2; max-width: 700px; }
+  .hero-badge {
+    display: inline-block;
+    background: rgba(226,75,74,0.15);
+    border: 1px solid rgba(226,75,74,0.4);
+    color: var(--red);
+    font-size: 0.7rem;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    padding: 0.4rem 1.2rem;
+    border-radius: 2px;
+    margin-bottom: 1.5rem;
+  }
+  .hero h1 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(4rem, 10vw, 9rem);
+    line-height: 0.9;
+    letter-spacing: 2px;
+    margin-bottom: 1.5rem;
+  }
+  .hero h1 em { color: var(--red); font-style: normal; }
+  .hero p {
+    font-size: 1.1rem;
+    color: var(--gray-light);
+    line-height: 1.7;
+    font-weight: 300;
+    max-width: 500px;
+    margin-bottom: 2.5rem;
+  }
+  .hero-buttons { display: flex; gap: 1rem; flex-wrap: wrap; }
+  .btn-primary {
+    background: var(--red);
+    color: white;
+    padding: 0.9rem 2.5rem;
+    font-size: 0.85rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    font-weight: 600;
+    text-decoration: none;
+    border-radius: 2px;
+    transition: background 0.2s, transform 0.2s;
+    display: inline-block;
+  }
+  .btn-primary:hover { background: var(--red-dark); transform: translateY(-2px); }
+  .btn-outline {
+    border: 1px solid rgba(245,245,240,0.3);
+    color: var(--white);
+    padding: 0.9rem 2.5rem;
+    font-size: 0.85rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    font-weight: 500;
+    text-decoration: none;
+    border-radius: 2px;
+    transition: border-color 0.2s, background 0.2s;
+    display: inline-block;
+  }
+  .btn-outline:hover { border-color: var(--red); background: rgba(226,75,74,0.08); }
+  .hero-stats {
+    position: absolute; right: 3rem; bottom: 3rem;
+    display: flex; gap: 3rem;
+  }
+  .stat { text-align: right; }
+  .stat-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2.5rem;
+    color: var(--white);
+    line-height: 1;
+  }
+  .stat-label {
+    font-size: 0.7rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--gray);
+  }
+
+  /* SECTIONS COMMUNES */
+  section { padding: 5rem 3rem; }
+  .section-tag {
+    font-size: 0.7rem;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--red);
+    margin-bottom: 0.5rem;
+  }
+  .section-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(2.5rem, 5vw, 4.5rem);
+    line-height: 1;
+    letter-spacing: 2px;
+    margin-bottom: 1rem;
+  }
+  .section-sub {
+    color: var(--gray-light);
+    font-weight: 300;
+    font-size: 1rem;
+    max-width: 500px;
+    line-height: 1.6;
+  }
+
+  /* SEARCH */
+  .search-section {
+    background: var(--dark2);
+    padding: 3rem;
+    border-top: 1px solid rgba(226,75,74,0.2);
+    border-bottom: 1px solid rgba(226,75,74,0.2);
+  }
+  .search-bar {
+    display: flex; gap: 0;
+    max-width: 800px; margin: 0 auto;
+  }
+  .search-bar select, .search-bar input {
+    background: var(--dark3);
+    border: 1px solid rgba(255,255,255,0.1);
+    color: var(--white);
+    padding: 1rem 1.5rem;
+    font-family: 'Barlow', sans-serif;
+    font-size: 0.95rem;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+  .search-bar select:focus, .search-bar input:focus {
+    border-color: var(--red);
+  }
+  .search-bar select { border-radius: 2px 0 0 2px; cursor: pointer; }
+  .search-bar input { flex: 1; border-left: none; border-right: none; }
+  .search-bar button {
+    background: var(--red);
+    color: white;
+    border: none;
+    padding: 1rem 2rem;
+    font-family: 'Barlow', sans-serif;
+    font-size: 0.85rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    font-weight: 600;
+    cursor: pointer;
+    border-radius: 0 2px 2px 0;
+    transition: background 0.2s;
+  }
+  .search-bar button:hover { background: var(--red-dark); }
+
+  /* MARQUES */
+  .marques-section { background: var(--dark); }
+  .marques-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    gap: 1rem;
+    margin-top: 3rem;
+  }
+  .marque-card {
+    background: var(--dark3);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 4px;
+    padding: 1.5rem 1rem;
+    text-align: center;
+    cursor: pointer;
+    transition: border-color 0.2s, background 0.2s, transform 0.2s;
+    text-decoration: none;
+    color: inherit;
+    display: block;
+  }
+  .marque-card:hover {
+    border-color: var(--red);
+    background: rgba(226,75,74,0.05);
+    transform: translateY(-3px);
+  }
+  .marque-logo { font-size: 2.5rem; margin-bottom: 0.5rem; }
+  .marque-name {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.9rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--gray-light);
+    font-weight: 700;
+  }
+  .marque-count {
+    font-size: 0.7rem;
+    color: var(--gray);
+    margin-top: 0.2rem;
+  }
+
+  /* VOITURES EN VEDETTE */
+  .featured-section { background: var(--black); }
+  .featured-header {
+    display: flex; justify-content: space-between; align-items: flex-end;
+    margin-bottom: 3rem;
+  }
+  .cars-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 1.5rem;
+  }
+  .car-card {
+    background: var(--dark2);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 6px;
+    overflow: hidden;
+    cursor: pointer;
+    transition: border-color 0.2s, transform 0.2s;
+    text-decoration: none;
+    color: inherit;
+    display: block;
+  }
+  .car-card:hover { border-color: rgba(226,75,74,0.5); transform: translateY(-4px); }
+  .car-image {
+    width: 100%; height: 200px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 6rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .car-image-overlay {
+    position: absolute; inset: 0;
+    background: linear-gradient(to top, var(--dark2) 0%, transparent 60%);
+  }
+  .car-badge {
+    position: absolute; top: 1rem; left: 1rem;
+    background: var(--red);
+    color: white;
+    font-size: 0.65rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 0.3rem 0.8rem;
+    border-radius: 2px;
+    font-weight: 600;
+  }
+  .car-body { padding: 1.5rem; }
+  .car-brand {
+    font-size: 0.7rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--red);
+    font-weight: 600;
+    margin-bottom: 0.3rem;
+  }
+  .car-name {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.8rem;
+    letter-spacing: 2px;
+    margin-bottom: 0.5rem;
+    line-height: 1;
+  }
+  .car-year {
+    font-size: 0.85rem;
+    color: var(--gray);
+    margin-bottom: 1rem;
+  }
+  .car-specs {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 0.5rem; margin-bottom: 1rem;
+    border-top: 1px solid rgba(255,255,255,0.06);
+    padding-top: 1rem;
+  }
+  .spec { text-align: center; }
+  .spec-val {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--white);
+  }
+  .spec-key {
+    font-size: 0.65rem;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--gray);
+    margin-top: 0.1rem;
+  }
+  .car-price {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--accent);
+  }
+
+  /* DETAIL VIEW */
+  .detail-overlay {
+    position: fixed; inset: 0; z-index: 200;
+    background: rgba(0,0,0,0.92);
+    display: none; align-items: center; justify-content: center;
+    padding: 2rem;
+    backdrop-filter: blur(8px);
+  }
+  .detail-overlay.active { display: flex; }
+  .detail-modal {
+    background: var(--dark2);
+    border: 1px solid rgba(226,75,74,0.3);
+    border-radius: 8px;
+    max-width: 900px;
+    width: 100%;
+    max-height: 90vh;
+    overflow-y: auto;
+    position: relative;
+  }
+  .detail-close {
+    position: sticky; top: 0;
+    display: flex; justify-content: flex-end;
+    padding: 1rem 1.5rem;
+    background: var(--dark2);
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+    z-index: 1;
+  }
+  .close-btn {
+    background: none; border: 1px solid rgba(255,255,255,0.2);
+    color: var(--white); cursor: pointer;
+    padding: 0.4rem 1rem; border-radius: 2px;
+    font-family: 'Barlow', sans-serif;
+    font-size: 0.8rem; letter-spacing: 2px;
+    text-transform: uppercase;
+    transition: border-color 0.2s;
+  }
+  .close-btn:hover { border-color: var(--red); color: var(--red); }
+  .detail-content { padding: 2rem; }
+  .detail-hero {
+    display: flex; justify-content: center; align-items: center;
+    font-size: 8rem; height: 200px;
+    background: var(--dark3);
+    border-radius: 4px;
+    margin-bottom: 2rem;
+  }
+  .detail-header { margin-bottom: 2rem; }
+  .detail-brand {
+    font-size: 0.7rem; letter-spacing: 4px;
+    text-transform: uppercase; color: var(--red);
+    font-weight: 600; margin-bottom: 0.3rem;
+  }
+  .detail-name {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 3.5rem; letter-spacing: 3px; line-height: 1;
+    margin-bottom: 0.5rem;
+  }
+  .detail-tagline {
+    color: var(--gray-light); font-weight: 300;
+    font-size: 1rem; line-height: 1.6;
+  }
+  .detail-specs-grid {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 1px; background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 4px; overflow: hidden;
+    margin-bottom: 2rem;
+  }
+  .detail-spec {
+    background: var(--dark3);
+    padding: 1.2rem;
+  }
+  .detail-spec-val {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.8rem; letter-spacing: 1px;
+    color: var(--white); margin-bottom: 0.2rem;
+  }
+  .detail-spec-key {
+    font-size: 0.65rem; letter-spacing: 2px;
+    text-transform: uppercase; color: var(--gray);
+  }
+  .detail-section { margin-bottom: 2rem; }
+  .detail-section h3 {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.75rem; letter-spacing: 3px;
+    text-transform: uppercase; color: var(--red);
+    margin-bottom: 1rem;
+    border-bottom: 1px solid rgba(226,75,74,0.2);
+    padding-bottom: 0.5rem;
+  }
+  .detail-section p {
+    color: var(--gray-light); font-weight: 300;
+    line-height: 1.8; font-size: 0.95rem;
+  }
+  .detail-features {
+    display: flex; flex-wrap: wrap; gap: 0.5rem;
+  }
+  .feature-tag {
+    background: rgba(226,75,74,0.1);
+    border: 1px solid rgba(226,75,74,0.25);
+    color: var(--red);
+    font-size: 0.75rem;
+    padding: 0.35rem 0.9rem;
+    border-radius: 2px;
+    letter-spacing: 1px;
+  }
+
+  /* CATÉGORIES */
+  .categories-section { background: var(--dark2); }
+  .cat-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 1rem; margin-top: 3rem;
+  }
+  .cat-card {
+    background: var(--dark3);
+    border: 1px solid rgba(255,255,255,0.06);
+    padding: 2rem 1.5rem;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.2s;
+    text-align: center;
+  }
+  .cat-card:hover {
+    border-color: var(--red);
+    background: rgba(226,75,74,0.05);
+  }
+  .cat-icon { font-size: 2.5rem; margin-bottom: 1rem; }
+  .cat-name {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 1.1rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--white);
+    margin-bottom: 0.3rem;
+  }
+  .cat-desc { font-size: 0.8rem; color: var(--gray); }
+
+  /* COMPARATEUR */
+  .compare-section { background: var(--black); }
+  .compare-box {
+    background: var(--dark2);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 6px;
+    padding: 2rem;
+    margin-top: 3rem;
+  }
+  .compare-selects {
+    display: grid; grid-template-columns: 1fr auto 1fr;
+    gap: 1rem; align-items: center; margin-bottom: 2rem;
+  }
+  .vs-badge {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2rem; color: var(--red);
+    text-align: center;
+  }
+  select.compare-sel {
+    width: 100%;
+    background: var(--dark3);
+    border: 1px solid rgba(255,255,255,0.1);
+    color: var(--white);
+    padding: 0.8rem 1rem;
+    font-family: 'Barlow', sans-serif;
+    font-size: 0.95rem;
+    outline: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  .compare-results {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+  }
+  .compare-car { text-align: center; }
+  .compare-car-name {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.5rem; letter-spacing: 2px;
+    margin-bottom: 1rem;
+  }
+  .compare-bar-row {
+    display: grid; grid-template-columns: 1fr auto;
+    gap: 0.5rem; align-items: center; margin-bottom: 0.8rem;
+    text-align: left;
+  }
+  .compare-bar-label {
+    font-size: 0.7rem; letter-spacing: 2px;
+    text-transform: uppercase; color: var(--gray);
+    margin-bottom: 0.3rem;
+  }
+  .compare-bar-track {
+    height: 6px; background: rgba(255,255,255,0.08);
+    border-radius: 3px; overflow: hidden;
+  }
+  .compare-bar-fill {
+    height: 100%; background: var(--red);
+    border-radius: 3px;
+    transition: width 0.5s ease;
+  }
+  .compare-bar-val {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.85rem; font-weight: 700;
+    color: var(--white); min-width: 50px;
+    text-align: right;
+  }
+
+  /* NEWSLETTER */
+  .newsletter-section {
+    background: var(--dark2);
+    text-align: center;
+    border-top: 1px solid rgba(226,75,74,0.2);
+  }
+  .newsletter-form {
+    display: flex; gap: 0; max-width: 450px;
+    margin: 2rem auto 0;
+  }
+  .newsletter-form input {
+    flex: 1;
+    background: var(--dark3);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-right: none;
+    color: var(--white);
+    padding: 0.9rem 1.5rem;
+    font-family: 'Barlow', sans-serif;
+    font-size: 0.95rem;
+    outline: none;
+    border-radius: 2px 0 0 2px;
+  }
+  .newsletter-form button {
+    background: var(--red); color: white;
+    border: none; padding: 0.9rem 2rem;
+    font-family: 'Barlow', sans-serif;
+    font-size: 0.8rem; letter-spacing: 2px;
+    text-transform: uppercase; font-weight: 600;
+    cursor: pointer; border-radius: 0 2px 2px 0;
+    transition: background 0.2s;
+  }
+  .newsletter-form button:hover { background: var(--red-dark); }
+
+  /* FOOTER */
+  footer {
+    background: var(--dark);
+    border-top: 1px solid rgba(255,255,255,0.06);
+    padding: 3rem;
+    display: grid; grid-template-columns: 2fr 1fr 1fr 1fr;
+    gap: 2rem;
+  }
+  .footer-brand .logo { font-size: 1.8rem; margin-bottom: 1rem; display: block; }
+  .footer-brand p { color: var(--gray); font-size: 0.85rem; line-height: 1.7; }
+  .footer-col h4 {
+    font-size: 0.7rem; letter-spacing: 3px;
+    text-transform: uppercase; color: var(--red);
+    margin-bottom: 1rem; font-weight: 600;
+  }
+  .footer-col ul { list-style: none; }
+  .footer-col ul li { margin-bottom: 0.5rem; }
+  .footer-col ul li a {
+    color: var(--gray); text-decoration: none;
+    font-size: 0.85rem; transition: color 0.2s;
+  }
+  .footer-col ul li a:hover { color: var(--white); }
+  .footer-bottom {
+    padding: 1.5rem 3rem;
+    background: var(--dark);
+    border-top: 1px solid rgba(255,255,255,0.04);
+    display: flex; justify-content: space-between;
+    font-size: 0.75rem; color: var(--gray);
+  }
+
+  /* SCROLL ANIMATIONS */
+  .fade-up {
+    opacity: 0; transform: translateY(30px);
+    transition: opacity 0.6s, transform 0.6s;
+  }
+  .fade-up.visible { opacity: 1; transform: translateY(0); }
+
+  @media (max-width: 768px) {
+    nav { padding: 1rem 1.5rem; }
+    .nav-links { display: none; }
+    section { padding: 3rem 1.5rem; }
+    .hero { padding: 1.5rem; }
+    .hero-stats { right: 1.5rem; bottom: 1.5rem; gap: 1.5rem; }
+    footer { grid-template-columns: 1fr 1fr; }
+    .compare-selects { grid-template-columns: 1fr; }
+    .compare-results { grid-template-columns: 1fr; }
+    .cars-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="logo">AUTO<span>PASSION</span></div>
+  <ul class="nav-links">
+    <li><a href="#marques">Marques</a></li>
+    <li><a href="#catalogue">Catalogue</a></li>
+    <li><a href="#categories">Catégories</a></li>
+    <li><a href="#comparer">Comparer</a></li>
+    <li><a href="#newsletter" class="nav-cta">Newsletter</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+  <div class="hero-content">
+    <div class="hero-badge">⚡ La référence automobile</div>
+    <h1>L'ART DE<br><em>CONDUIRE</em><br>MIEUX</h1>
+    <p>Découvrez des fiches techniques complètes, des comparatifs, et des informations détaillées sur toutes les voitures du monde — des classiques aux hypercars.</p>
+    <div class="hero-buttons">
+      <a href="#catalogue" class="btn-primary">Explorer le catalogue</a>
+      <a href="#comparer" class="btn-outline">Comparer des modèles</a>
+    </div>
+  </div>
+  <div class="hero-stats">
+    <div class="stat">
+      <div class="stat-num">500+</div>
+      <div class="stat-label">Modèles</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">80+</div>
+      <div class="stat-label">Marques</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">100%</div>
+      <div class="stat-label">Gratuit</div>
+    </div>
+  </div>
+</section>
+
+<!-- SEARCH -->
+<div class="search-section">
+  <div class="search-bar">
+    <select>
+      <option>Toutes les marques</option>
+      <option>Ferrari</option>
+      <option>Lamborghini</option>
+      <option>Porsche</option>
+      <option>BMW</option>
+      <option>Mercedes</option>
+      <option>Bugatti</option>
+      <option>McLaren</option>
+      <option>Aston Martin</option>
+    </select>
+    <input type="text" placeholder="Rechercher un modèle, une année, une motorisation...">
+    <button>Rechercher</button>
+  </div>
+</div>
+
+<!-- MARQUES -->
+<section class="marques-section" id="marques">
+  <div class="section-tag">Constructeurs</div>
+  <div class="section-title">Les grandes marques</div>
+  <p class="section-sub">Explorez les constructeurs automobiles les plus emblématiques du monde.</p>
+  <div class="marques-grid fade-up">
+    <a href="#" class="marque-card" onclick="filterBrand('Ferrari')">
+      <div class="marque-logo">🐎</div>
+      <div class="marque-name">Ferrari</div>
+      <div class="marque-count">42 modèles</div>
+    </a>
+    <a href="#" class="marque-card" onclick="filterBrand('Lamborghini')">
+      <div class="marque-logo">🐂</div>
+      <div class="marque-name">Lamborghini</div>
+      <div class="marque-count">28 modèles</div>
+    </a>
+    <a href="#" class="marque-card" onclick="filterBrand('Porsche')">
+      <div class="marque-logo">🏎️</div>
+      <div class="marque-name">Porsche</div>
+      <div class="marque-count">56 modèles</div>
+    </a>
+    <a href="#" class="marque-card" onclick="filterBrand('BMW')">
+      <div class="marque-logo">🔵</div>
+      <div class="marque-name">BMW</div>
+      <div class="marque-count">68 modèles</div>
+    </a>
+    <a href="#" class="marque-card" onclick="filterBrand('Mercedes')">
+      <div class="marque-logo">⭐</div>
+      <div class="marque-name">Mercedes</div>
+      <div class="marque-count">74 modèles</div>
+    </a>
+    <a href="#" class="marque-card" onclick="filterBrand('Bugatti')">
+      <div class="marque-logo">💎</div>
+      <div class="marque-name">Bugatti</div>
+      <div class="marque-count">8 modèles</div>
+    </a>
+    <a href="#" class="marque-card" onclick="filterBrand('McLaren')">
+      <div class="marque-logo">🔶</div>
+      <div class="marque-name">McLaren</div>
+      <div class="marque-count">22 modèles</div>
+    </a>
+    <a href="#" class="marque-card" onclick="filterBrand('Aston Martin')">
+      <div class="marque-logo">🍸</div>
+      <div class="marque-name">Aston Martin</div>
+      <div class="marque-count">31 modèles</div>
+    </a>
+    <a href="#" class="marque-card" onclick="filterBrand('Pagani')">
+      <div class="marque-logo">🌀</div>
+      <div class="marque-name">Pagani</div>
+      <div class="marque-count">5 modèles</div>
+    </a>
+    <a href="#" class="marque-card">
+      <div class="marque-logo">🔥</div>
+      <div class="marque-name">Koenigsegg</div>
+      <div class="marque-count">7 modèles</div>
+    </a>
+    <a href="#" class="marque-card">
+      <div class="marque-logo">🦅</div>
+      <div class="marque-name">Maserati</div>
+      <div class="marque-count">19 modèles</div>
+    </a>
+    <a href="#" class="marque-card">
+      <div class="marque-logo">⚡</div>
+      <div class="marque-name">Tesla</div>
+      <div class="marque-count">12 modèles</div>
+    </a>
+  </div>
+</section>
+
+<!-- CATALOGUE -->
+<section class="featured-section" id="catalogue">
+  <div class="featured-header fade-up">
+    <div>
+      <div class="section-tag">Catalogue</div>
+      <div class="section-title">Voitures en vedette</div>
+    </div>
+    <a href="#" class="btn-outline" style="margin-bottom: 0.5rem;">Voir tout</a>
+  </div>
+  <div class="cars-grid" id="cars-grid">
+    <!-- Rempli par JS -->
+  </div>
+</section>
+
+<!-- CATÉGORIES -->
+<section class="categories-section" id="categories">
+  <div class="section-tag">Classification</div>
+  <div class="section-title">Par catégorie</div>
+  <div class="cat-grid fade-up">
+    <div class="cat-card">
+      <div class="cat-icon">🏁</div>
+      <div class="cat-name">Supercar</div>
+      <div class="cat-desc">500+ ch, 0–100 &lt; 3s</div>
+    </div>
+    <div class="cat-card">
+      <div class="cat-icon">💰</div>
+      <div class="cat-name">Luxe</div>
+      <div class="cat-desc">Confort & prestige</div>
+    </div>
+    <div class="cat-card">
+      <div class="cat-icon">🚙</div>
+      <div class="cat-name">SUV Sport</div>
+      <div class="cat-desc">Polyvalence & puissance</div>
+    </div>
+    <div class="cat-card">
+      <div class="cat-icon">🏆</div>
+      <div class="cat-name">Hypercar</div>
+      <div class="cat-desc">Le summum du possible</div>
+    </div>
+    <div class="cat-card">
+      <div class="cat-icon">⚡</div>
+      <div class="cat-name">Électrique</div>
+      <div class="cat-desc">Zéro émission</div>
+    </div>
+    <div class="cat-card">
+      <div class="cat-icon">🔧</div>
+      <div class="cat-name">Classique</div>
+      <div class="cat-desc">Voitures historiques</div>
+    </div>
+    <div class="cat-card">
+      <div class="cat-icon">🏎️</div>
+      <div class="cat-name">GT</div>
+      <div class="cat-desc">Grand Tourisme</div>
+    </div>
+    <div class="cat-card">
+      <div class="cat-icon">🌿</div>
+      <div class="cat-name">Hybride</div>
+      <div class="cat-desc">Meilleur des deux mondes</div>
+    </div>
+  </div>
+</section>
+
+<!-- COMPARATEUR -->
+<section class="compare-section" id="comparer">
+  <div class="section-tag">Comparateur</div>
+  <div class="section-title">Comparer deux modèles</div>
+  <p class="section-sub">Confrontez les caractéristiques techniques de vos voitures préférées.</p>
+  <div class="compare-box fade-up">
+    <div class="compare-selects">
+      <select class="compare-sel" id="car1-select" onchange="updateCompare()">
+        <option value="0">Ferrari SF90 Stradale</option>
+        <option value="1">Lamborghini Huracán STO</option>
+        <option value="2">Bugatti Chiron</option>
+        <option value="3">McLaren 720S</option>
+        <option value="4">Porsche 911 GT3</option>
+        <option value="5">Pagani Huayra</option>
+      </select>
+      <div class="vs-badge">VS</div>
+      <select class="compare-sel" id="car2-select" onchange="updateCompare()">
+        <option value="1">Lamborghini Huracán STO</option>
+        <option value="0">Ferrari SF90 Stradale</option>
+        <option value="2">Bugatti Chiron</option>
+        <option value="3">McLaren 720S</option>
+        <option value="4">Porsche 911 GT3</option>
+        <option value="5">Pagani Huayra</option>
+      </select>
+    </div>
+    <div class="compare-results" id="compare-results"></div>
+  </div>
+</section>
+
+<!-- NEWSLETTER -->
+<section class="newsletter-section" id="newsletter">
+  <div class="section-tag">Restez informé</div>
+  <div class="section-title">Newsletter Automobile</div>
+  <p class="section-sub" style="margin: 0 auto; text-align: center;">
+    Les dernières sorties, comparatifs exclusifs et actualités de la semaine — dans votre boîte mail.
+  </p>
+  <div class="newsletter-form">
+    <input type="email" placeholder="votre@email.com">
+    <button>S'abonner</button>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-brand">
+    <span class="logo">AUTO<span>PASSION</span></span>
+    <p>La référence francophone pour les passionnés d'automobile. Fiches techniques, comparatifs, actualités et plus encore.</p>
+  </div>
+  <div class="footer-col">
+    <h4>Catalogue</h4>
+    <ul>
+      <li><a href="#">Supercars</a></li>
+      <li><a href="#">Voitures de luxe</a></li>
+      <li><a href="#">SUV sport</a></li>
+      <li><a href="#">Électriques</a></li>
+      <li><a href="#">Classiques</a></li>
+    </ul>
+  </div>
+  <div class="footer-col">
+    <h4>Outils</h4>
+    <ul>
+      <li><a href="#">Comparateur</a></li>
+      <li><a href="#">Calculateur prix</a></li>
+      <li><a href="#">Guide d'achat</a></li>
+      <li><a href="#">Quiz automobile</a></li>
+    </ul>
+  </div>
+  <div class="footer-col">
+    <h4>À propos</h4>
+    <ul>
+      <li><a href="#">Notre mission</a></li>
+      <li><a href="#">Contact</a></li>
+      <li><a href="#">Mentions légales</a></li>
+      <li><a href="#">CGU</a></li>
+    </ul>
+  </div>
+</footer>
+<div class="footer-bottom">
+  <span>© 2024 AutoPassion. Tous droits réservés.</span>
+  <span>Fait avec ❤️ pour les passionnés</span>
+</div>
+
+<!-- DETAIL MODAL -->
+<div class="detail-overlay" id="detail-overlay" onclick="closeDetail(event)">
+  <div class="detail-modal" id="detail-modal">
+    <div class="detail-close">
+      <button class="close-btn" onclick="closeDetailModal()">✕ Fermer</button>
+    </div>
+    <div class="detail-content" id="detail-content"></div>
+  </div>
+</div>
+
+<script>
+const cars = [
+  {
+    brand: "Ferrari", name: "SF90 Stradale", year: 2023, emoji: "🔴",
+    badge: "Hypercar", price: "620 000 €",
+    power: "1000 ch", speed: "340 km/h", accel: "2.5s",
+    engine: "V8 3.9L Biturbo + 3 moteurs électriques",
+    weight: "1570 kg", torque: "800 Nm", transmission: "8 vitesses DCT",
+    category: "Hybride rechargeable", origin: "Maranello, Italie",
+    description: "La SF90 Stradale est la première Ferrari de série dotée d'un système hybride rechargeable. Son architecture combine un V8 biturbo de 780 ch et trois moteurs électriques pour une puissance combinée de 1000 ch. Un chef-d'œuvre d'ingénierie italienne qui redéfinit les standards des hypercars.",
+    features: ["Mode électrique pur 25 km", "Traction intégrale", "Aérodynamique active", "Différentiel e-4WD", "Carbone forgé", "PHEV homologué"]
+  },
+  {
+    brand: "Lamborghini", name: "Huracán STO", year: 2022, emoji: "🟡",
+    badge: "Supercar", price: "340 000 €",
+    power: "640 ch", speed: "310 km/h", accel: "3.0s",
+    engine: "V10 5.2L Atmosphérique",
+    weight: "1339 kg", torque: "565 Nm", transmission: "7 vitesses DCT",
+    category: "Supercar", origin: "Sant'Agata Bolognese, Italie",
+    description: "La Huracán STO (Super Trofeo Omologata) est la plus extrême des Huracán de route. Inspirée directement de la voiture de course, elle embarque plus de 75% de ses composants en carbone. Son V10 atmosphérique rugit jusqu'à 8 500 tr/min pour une expérience de conduite absolument viscérale.",
+    features: ["75% carbone", "V10 atmosphérique", "Pack aéro course", "Freins céramique", "Pneus Bridgestone Sport", "Mode Circuit"]
+  },
+  {
+    brand: "Bugatti", name: "Chiron Super Sport", year: 2022, emoji: "🔵",
+    badge: "Hypercar", price: "3 500 000 €",
+    power: "1600 ch", speed: "440 km/h", accel: "2.4s",
+    engine: "W16 8.0L Quad-Turbo",
+    weight: "1978 kg", torque: "1600 Nm", transmission: "7 vitesses DSG",
+    category: "Hypercar", origin: "Molsheim, France",
+    description: "Le Chiron Super Sport est l'expression ultime du savoir-faire Bugatti. Son légendaire W16 de 8 litres avec quatre turbocompresseurs développe 1600 ch et 1600 Nm de couple. Limité à 440 km/h, il représente le summum absolu de l'automobile de production.",
+    features: ["W16 unique au monde", "Carrosserie carbone", "Freins en carbone-céramique", "Suspension active", "Intérieur fait main", "300 exemplaires seulement"]
+  },
+  {
+    brand: "McLaren", name: "720S", year: 2023, emoji: "🟠",
+    badge: "Supercar", price: "280 000 €",
+    power: "720 ch", speed: "341 km/h", accel: "2.9s",
+    engine: "V8 4.0L Biturbo M840T",
+    weight: "1283 kg", torque: "770 Nm", transmission: "7 vitesses SSG",
+    category: "Supercar", origin: "Woking, Royaume-Uni",
+    description: "La 720S révolutionne le rapport performances/poids avec son châssis monocoque en carbone MonoCell II. Son V8 biturbo développé en interne offre des performances exceptionnelles dans une voiture étonnamment polyvalente. La double peau de carbone de sa carrosserie lui confère une aérodynamique unique.",
+    features: ["Monocoque carbone MonoCell II", "Double peau carrosserie", "Suspension hydraulique", "Active Dynamics Panel", "Légèreté extrême", "Portes dièdres"]
+  },
+  {
+    brand: "Porsche", name: "911 GT3 RS", year: 2023, emoji: "🟢",
+    badge: "GT", price: "220 000 €",
+    power: "525 ch", speed: "296 km/h", accel: "3.2s",
+    engine: "Flat-6 4.0L Atmosphérique",
+    weight: "1450 kg", torque: "470 Nm", transmission: "7 vitesses PDK",
+    category: "GT", origin: "Stuttgart, Allemagne",
+    description: "La 911 GT3 RS est la plus extrême des 911 de route. Son flat-6 de 4 litres entièrement révisionné du moteur de la 911 RSR de course rugit jusqu'à 9 000 tr/min. Le système aérodynamique à aileron actif DSSV génère une charge verticale record pour une voiture de série.",
+    features: ["9000 tr/min moteur course", "Aileron actif DSSV", "Suspension course", "Freins carbone-céramique PCCB", "Béquets avant actifs", "Intérieur allégé"]
+  },
+  {
+    brand: "Pagani", name: "Huayra Roadster BC", year: 2022, emoji: "🌀",
+    badge: "Hypercar", price: "3 100 000 €",
+    power: "800 ch", speed: "350 km/h", accel: "2.8s",
+    engine: "V12 6.0L Biturbo AMG",
+    weight: "1218 kg", torque: "1050 Nm", transmission: "7 vitesses Xtrac",
+    category: "Hypercar", origin: "San Cesario sul Panaro, Italie",
+    description: "La Huayra Roadster BC est une œuvre d'art roulante. Avec seulement 40 exemplaires produits, chaque voiture est une pièce unique réalisée entièrement à la main. Le châssis en carbo-titanium, les ailes actives et le moteur AMG V12 bispeedé forment un ensemble d'une cohérence absolue.",
+    features: ["40 exemplaires seulement", "Châssis carbo-titanium", "Fait 100% à la main", "Moteur AMG exclusif", "4 ailes actives indépendantes", "Poids plume 1218 kg"]
+  }
+];
+
+const compareData = [
+  { name: "Ferrari SF90", puissance: 100, vitesse: 97, accélération: 100, légèreté: 72, couple: 80 },
+  { name: "Lambo Huracán", puissance: 63, vitesse: 88, accélération: 94, légèreté: 96, couple: 55 },
+  { name: "Bugatti Chiron", puissance: 100, vitesse: 100, accélération: 100, légèreté: 45, couple: 100 },
+  { name: "McLaren 720S", puissance: 71, vitesse: 98, accélération: 96, légèreté: 100, couple: 77 },
+  { name: "Porsche 911 GT3", puissance: 52, vitesse: 84, accélération: 88, légèreté: 80, couple: 47 },
+  { name: "Pagani Huayra", puissance: 79, vitesse: 100, accélération: 97, légèreté: 98, couple: 100 }
+];
+
+function renderCars() {
+  const grid = document.getElementById('cars-grid');
+  grid.innerHTML = cars.map((c, i) => `
+    <div class="car-card" onclick="openDetail(${i})">
+      <div class="car-image" style="background: linear-gradient(135deg, #1a1a1a 0%, #111 100%);">
+        <span style="z-index: 1; position: relative;">${c.emoji}</span>
+        <div class="car-image-overlay"></div>
+        <div class="car-badge">${c.badge}</div>
+      </div>
+      <div class="car-body">
+        <div class="car-brand">${c.brand}</div>
+        <div class="car-name">${c.name}</div>
+        <div class="car-year">${c.year} · ${c.engine}</div>
+        <div class="car-specs">
+          <div class="spec"><div class="spec-val">${c.power}</div><div class="spec-key">Puissance</div></div>
+          <div class="spec"><div class="spec-val">${c.speed}</div><div class="spec-key">Vmax</div></div>
+          <div class="spec"><div class="spec-val">${c.accel}</div><div class="spec-key">0–100</div></div>
+        </div>
+        <div class="car-price">${c.price}</div>
+      </div>
+    </div>
+  `).join('');
+}
+
+function openDetail(i) {
+  const c = cars[i];
+  document.getElementById('detail-content').innerHTML = `
+    <div class="detail-hero">${c.emoji}</div>
+    <div class="detail-header">
+      <div class="detail-brand">${c.brand} · ${c.year}</div>
+      <div class="detail-name">${c.name}</div>
+      <div class="detail-tagline">${c.category} · Origine : ${c.origin}</div>
+    </div>
+    <div class="detail-specs-grid">
+      <div class="detail-spec"><div class="detail-spec-val">${c.power}</div><div class="detail-spec-key">Puissance</div></div>
+      <div class="detail-spec"><div class="detail-spec-val">${c.speed}</div><div class="detail-spec-key">Vitesse max</div></div>
+      <div class="detail-spec"><div class="detail-spec-val">${c.accel}</div><div class="detail-spec-key">0 à 100 km/h</div></div>
+      <div class="detail-spec"><div class="detail-spec-val">${c.torque}</div><div class="detail-spec-key">Couple max</div></div>
+      <div class="detail-spec"><div class="detail-spec-val">${c.weight}</div><div class="detail-spec-key">Poids</div></div>
+      <div class="detail-spec"><div class="detail-spec-val">${c.transmission}</div><div class="detail-spec-key">Boîte</div></div>
+    </div>
+    <div class="detail-section">
+      <h3>Motorisation</h3>
+      <p>${c.engine}</p>
+    </div>
+    <div class="detail-section">
+      <h3>Description</h3>
+      <p>${c.description}</p>
+    </div>
+    <div class="detail-section">
+      <h3>Points forts</h3>
+      <div class="detail-features">${c.features.map(f => `<span class="feature-tag">${f}</span>`).join('')}</div>
+    </div>
+    <div class="detail-section">
+      <h3>Prix indicatif</h3>
+      <p style="font-family: 'Bebas Neue', sans-serif; font-size: 2.5rem; color: var(--accent); letter-spacing: 2px;">${c.price}</p>
+    </div>
+  `;
+  document.getElementById('detail-overlay').classList.add('active');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeDetail(e) {
+  if (e.target === document.getElementById('detail-overlay')) closeDetailModal();
+}
+function closeDetailModal() {
+  document.getElementById('detail-overlay').classList.remove('active');
+  document.body.style.overflow = '';
+}
+
+function updateCompare() {
+  const i1 = parseInt(document.getElementById('car1-select').value);
+  const i2 = parseInt(document.getElementById('car2-select').value);
+  const c1 = compareData[i1], c2 = compareData[i2];
+  const metrics = ['puissance', 'vitesse', 'accélération', 'légèreté', 'couple'];
+  const labels = ['Puissance', 'Vitesse max', 'Accélération', 'Légèreté', 'Couple'];
+
+  const renderCar = (c) => `
+    <div class="compare-car">
+      <div class="compare-car-name">${c.name}</div>
+      ${metrics.map((m, k) => `
+        <div>
+          <div class="compare-bar-label">${labels[k]}</div>
+          <div style="display: flex; align-items: center; gap: 8px;">
+            <div class="compare-bar-track" style="flex: 1;">
+              <div class="compare-bar-fill" style="width: ${c[m]}%;"></div>
+            </div>
+            <div class="compare-bar-val">${c[m]}</div>
+          </div>
+        </div>
+      `).join('')}
+    </div>
+  `;
+
+  document.getElementById('compare-results').innerHTML = renderCar(c1) + renderCar(c2);
+}
+
+// Scroll animations
+const observer = new IntersectionObserver(els => {
+  els.forEach(el => { if (el.isIntersecting) el.target.classList.add('visible'); });
+}, { threshold: 0.1 });
+document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+renderCars();
+updateCompare();
+</script>
+</body>
+</html>
